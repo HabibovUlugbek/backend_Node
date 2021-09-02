@@ -1,0 +1,4 @@
+{
+    "jwtPrivateKey": "innovator",
+    "db":"mongodb://localhost/virtualdars_test"
+}
