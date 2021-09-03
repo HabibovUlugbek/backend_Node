@@ -1,2 +1,5 @@
 # dependencies
 /node_modules
+#testing
+/coverage
+package-lock.json

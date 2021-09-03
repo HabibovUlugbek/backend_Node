@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { Category, validate } = require('../models/category');
 const auth = require("../middleware/auth")
-const admin = require("../middleware/admin")
+const admin = require("../middleware/admin");
+const mongoose = require('mongoose');
 
 router.get('/', async (req, res) => {
-   throw new Error("kutilgan xato")
+   
     const categories = await Category.find().sort('name');
     res.send(categories);
 
@@ -25,7 +26,10 @@ router.post('/', auth, async (req, res) => {
   res.status(201).send(category);
 });
 
-router.get('/:id',[auth, admin], async (req, res) => {
+router.get('/:id', async (req, res) => {
+
+  if(!mongoose.Types.ObjectId.isValid(req.params.id))
+     return res.status(404).send("Yaroqsiz ID")
   let category = await Category.findById(req.params.id);
   if (!category)
     return res.status(404).send('Berilgan IDga teng bo\'lgan toifa topilmadi');
